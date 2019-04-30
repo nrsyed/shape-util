@@ -5,28 +5,54 @@ import numpy as np
 PI = math.pi
 
 
-def arc(x=0, y=0, r=1, theta1=0, theta2=PI, resolution=180):
-    #TODO: revisit docstrings
+def arc(center=(0, 0), radius=1, theta1=0, theta2=2*PI, resolution=180):
     """
-    Returns x and y coords (row 0 and row 1, respectively)
-    of arc. "resolution" = number of points per 2*PI rads.
-    Input arguments x and y refer to centerpoint of arc.
+    Return x and y coordinates of a circular arc.
+
+    :param center: x and y coordinates of the center of the arc.
+    :type center: tuple of (float, float)
+
+    :param radius: Radius of the arc.
+    :type radius: float
+
+    :param theta1: Angle of beginning of arc in radians.
+    :type theta1: float
+
+    :param theta2: Angle of end of arc in radians.
+    :type theta2: float
+
+    :param resolution: number of points per 2*PI radians.
+    :type resolution: int
+
+    :return: x, y coordinates of arc.
+    :rtype: np.ndarray
     """
 
+    x, y = center
     thetas = np.linspace(theta1, theta2,
-        int(abs(theta2 - theta1) * (resolution / (2*PI))))
-    return np.vstack((x + r*np.cos(thetas), y + r*np.sin(thetas)))
+        int(abs(theta2 - theta1) * (resolution / (2 * PI)))
+    )
+    return np.vstack((x + radius * np.cos(thetas), y + radius * np.sin(thetas)))
 
 
 def zigzag(start, end, nodes, width):
-    """!
+    """
     Return a list of points corresponding to a zigzag.
 
-    @param r1 (array-like) The (x, y) coordinates of the first endpoint.
-    @param r2 (array-like) The (x, y) coordinates of the second endpoint.
-    @param nodes (int) The number of zigzag "nodes" or coils.
-    @param width (int or float) The diameter of the zigzag.
-    @return An array of x coordinates and an array of y coordinates.
+    :param start: (x, y) coordinates of the first endpoint.
+    :type start: tuple of (array-like, array-like)
+
+    :param end: (x, y) coordinates of the second endpoint.
+    :type start: tuple of (array-like, array-like)
+
+    :param nodes: Number of zigzag "nodes".
+    :type nodes: int
+
+    :param width: Width of the zigzag.
+    :type width: float
+
+    :return: An array of x coordinates and an array of y coordinates.
+    :rtype: np.ndarray, np.ndarray
     """
 
     # Check that nodes is at least 1.
